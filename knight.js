@@ -6,6 +6,7 @@ class Space {
     this.distance = null;
     this.space = coordinates;
     this.destinations = this.calculateDestinations(coordinates);
+    this.calledFrom = null;
   }
   calculateDestinations(space) {
     // array that will store valid destinations
@@ -28,11 +29,6 @@ class Space {
   }
 }
 
-/*let space = new Space([0,0]);
-console.log(space);
-let space2 = new Space([3,2]);
-console.log(space2);*/
-
 class ChessBoard {
   constructor() {
     this.board = this.generateBoard();
@@ -53,6 +49,9 @@ class ChessBoard {
     if ((start[0] < 0) || (start[1] < 0) || (end[0] < 0) || (end[1] < 0)
     || (start[0] > 7) || (start[1] > 7) || (end[0] > 7) || (end[1] > 7)) {
       return console.log('Invalid parameters entered!');
+    }
+    if (start === end) {
+      return console.log('Please select different locations for start and end points!');
     }
     // create queue that will check spaces that will be moved to next
     let queue = [];
@@ -75,7 +74,9 @@ class ChessBoard {
       let Futuredestinations = this.board[currentLocation[0]][currentLocation[1]].destinations;
       let currentDistance = this.board[currentLocation[0]][currentLocation[1]].distance;
       if ((currentLocation[0] === end[0]) && (currentLocation[1] === end[1])) {
-        return console.log(`Found in ${currentDistance} moves!`);
+        console.log(`Found in ${currentDistance} moves!`);
+        this.outputResults(end);
+        return 
       }
       for (let i = 0; i < Futuredestinations.length; i++) {
         // if space hasn't been visited yet perform necessary actions
@@ -86,10 +87,26 @@ class ChessBoard {
           this.board[Futuredestinations[i][0]][Futuredestinations[i][1]].distance = currentDistance + 1;
           // mark as visited to show it is being queued and won't be queued again
           this.board[Futuredestinations[i][0]][Futuredestinations[i][1]].visited = true;
+          // add tracker for which space added this one to the queue
+          this.board[Futuredestinations[i][0]][Futuredestinations[i][1]].calledFrom = currentLocation;
         }
       }
       queue.shift();
     } while (queue.length > 0);
+  }
+
+  outputResults(end) {
+    let moveTracker = [];
+    let location = end;
+    do {
+      moveTracker.push(location);
+      location = this.board[location[0]][location[1]].calledFrom;
+    } while (location !== null);
+    moveTracker.reverse();
+    console.log('The following sequence of moves were made:');
+    for (let i = 0; i < moveTracker.length; i++) {
+      console.log(`${moveTracker[i]}`);
+    }
   }
 }
   
