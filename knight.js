@@ -50,6 +50,10 @@ class ChessBoard {
   }
 
   knightMoves(start, end) {
+    if ((start[0] < 0) || (start[1] < 0) || (end[0] < 0) || (end[1] < 0)
+    || (start[0] > 7) || (start[1] > 7) || (end[0] > 7) || (end[1] > 7)) {
+      return console.log('Invalid parameters entered!');
+    }
     // create queue that will check spaces that will be moved to next
     let queue = [];
     queue.push(start);
@@ -97,4 +101,4 @@ console.log(board.board[0][5]);
 console.log(board.board[0][7]);
 console.log(board.board[4][4]);
 
-board.knightMoves([0,0],[6,7]);
+board.knightMoves([0,0],[1,2]);
