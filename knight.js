@@ -76,6 +76,7 @@ class ChessBoard {
       if ((currentLocation[0] === end[0]) && (currentLocation[1] === end[1])) {
         console.log(`Found in ${currentDistance} moves!`);
         this.outputResults(end);
+        this.clearBoard();
         return 
       }
       for (let i = 0; i < Futuredestinations.length; i++) {
@@ -108,6 +109,12 @@ class ChessBoard {
       console.log(`${moveTracker[i]}`);
     }
   }
+
+  clearBoard() {
+    this.start = null;
+    this.end = null;
+    this.board = this.generateBoard();
+  }
 }
   
 let board = new ChessBoard();
@@ -119,3 +126,5 @@ console.log(board.board[0][7]);
 console.log(board.board[4][4]);
 
 board.knightMoves([0,0],[1,2]);
+
+board.knightMoves([0,0],[5,2]);
