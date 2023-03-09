@@ -74,7 +74,12 @@ class ChessBoard {
       let Futuredestinations = this.board[currentLocation[0]][currentLocation[1]].destinations;
       let currentDistance = this.board[currentLocation[0]][currentLocation[1]].distance;
       if ((currentLocation[0] === end[0]) && (currentLocation[1] === end[1])) {
-        console.log(`Found in ${currentDistance} moves!`);
+        if (currentDistance === 1) {
+          console.log(`Found in ${currentDistance} move!`);
+        }
+        else {
+          console.log(`Found in ${currentDistance} moves!`);
+        }
         this.outputResults(end);
         this.clearBoard();
         return 
@@ -104,7 +109,7 @@ class ChessBoard {
       location = this.board[location[0]][location[1]].calledFrom;
     } while (location !== null);
     moveTracker.reverse();
-    console.log('The following sequence of moves were made:');
+    console.log('The following sequence of moves was made:');
     for (let i = 0; i < moveTracker.length; i++) {
       console.log(`${moveTracker[i]}`);
     }
