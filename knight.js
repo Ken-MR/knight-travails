@@ -50,7 +50,7 @@ class ChessBoard {
     || (start[0] > 7) || (start[1] > 7) || (end[0] > 7) || (end[1] > 7)) {
       return console.log('Invalid parameters entered!');
     }
-    if (start === end) {
+    if ((start[0] === end[0]) && (start[1] === end[1])){
       return console.log('Please select different locations for start and end points!');
     }
     // create queue that will check spaces that will be moved to next
@@ -128,3 +128,7 @@ console.log(board.board[4][4]);
 board.knightMoves([0,0],[1,2]);
 
 board.knightMoves([0,0],[5,2]);
+
+board.knightMoves([0,0],[0,0]);
+
+board.knightMoves([8,0],[5,2]);
